@@ -30,7 +30,7 @@ var userForm = iform({
     , len: 3
     }
   , avatar : {
-      default : function(req){
+      defaultValue : function(req){
         return '/avatar/' + req.body.username +'.png';
       }
     }

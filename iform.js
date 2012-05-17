@@ -18,7 +18,7 @@
  *        required : true
  *      },
  *      avatar : {
- *        default : function(req){
+ *        defaultValue : function(req){
  *          return getAvatar(req.body.email);
  *        }
  *      },
@@ -71,7 +71,6 @@ function iForm(rules){
     if(!fields.length) fields = fieldNames;
 
     return function(req, res, next){
-      var params = req.body;
       var iform  = req.iform  = {};
       var idata  = iform.data = {};
       var field, field_name, value;
@@ -85,19 +84,23 @@ function iForm(rules){
 
       for (var i = 0; i < fields.length; i += 1) {
         field_name = fields[i];
-        value = params[field_name];
+        value = req.param(field_name);
         if(field = ifields[field_name]){
           var rules = field.rules;
 
           if(value === undefined) {
             // form does not contains
+	    if(rules.defaultValue) {
+	      var v = rules.defaultValue;
+	      idata[field_name] = typeof v === 'function' ? v(req) : v;
+	    }
             if(rules.required) {
               appendError(field_name + ' is required');
             }
           } else if(value === null || value === '') {
             // user leave it blank
-            if(rules.default){
-              var v = rules.default;
+            if(rules.defaultValue){
+              var v = rules.defaultValue;
               idata[field_name] = typeof v === 'function' ? v(req) : v;
             }
             else if(rules.required) {
