@@ -49,6 +49,7 @@
  * @author Lin Gui
  */
 var Validator = require('validator').Validator
+  , sanitize  = require('validator').sanitize
   , Filter    = require('validator').Filter
   ;
 
@@ -237,7 +238,13 @@ function iValidator (errorHandler) {
       }
     }
     if(type && (f=typeFilter[type])) f.apply(validator);
-    return filter.value();
+	if(type ==='int') {
+        return sanitize(filter.value()).toInt();
+    } else if(type ==='float') {
+        return sanitize(filter.value()).toFloat();
+    } else {
+        return filter.value();
+    }
   }
 
 }
