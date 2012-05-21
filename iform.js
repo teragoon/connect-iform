@@ -91,16 +91,16 @@ function iForm(rules){
 
           if(value === undefined) {
             // form does not contains
-	    if(rules.defaultValue) {
-	      var v = rules.defaultValue;
-	      idata[field_name] = typeof v === 'function' ? v(req) : v;
-	    }
-            if(rules.required) {
+            if(rules.defaultValue) {
+              var v = rules.defaultValue;
+              idata[field_name] = typeof v === 'function' ? v(req) : v;
+            }
+            else if(rules.required) {
               appendError(field_name + ' is required');
             }
           } else if(value === null || value === '') {
             // user leave it blank
-            if(rules.defaultValue){
+            if(rules.defaultValue) {
               var v = rules.defaultValue;
               idata[field_name] = typeof v === 'function' ? v(req) : v;
             }
@@ -238,10 +238,28 @@ function iValidator (errorHandler) {
       }
     }
     if(type && (f=typeFilter[type])) f.apply(validator);
-	if(type ==='int') {
+    if(type ==='int') {
         return sanitize(filter.value()).toInt();
     } else if(type ==='float') {
         return sanitize(filter.value()).toFloat();
+    } else if(type ==='arrayInt') {
+        var oArr = filter.value(),
+            nArr = [];
+
+        oArr.forEach(function (value) {
+            nArr.push(sanitize(value).toInt());
+        });
+
+        return nArr;
+    } else if(type ==='arrayFloat') {
+        var oArr = filter.value(),
+            nArr = [];
+
+        oArr.forEach(function (value) {
+            nArr.push(sanitize(value).toFloat());
+        });
+
+        return nArr;
     } else {
         return filter.value();
     }
