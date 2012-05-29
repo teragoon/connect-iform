@@ -93,7 +93,7 @@ function iForm(rules){
             // form does not contains
             if(rules.defaultValue) {
               var v = rules.defaultValue;
-              idata[field_name] = typeof v === 'function' ? v(req) : v;
+              idata[field_name] = typeof v === 'function' ? v(req, idata) : v;
             }
             else if(rules.required) {
               appendError(field_name + ' is required');
@@ -102,7 +102,7 @@ function iForm(rules){
             // user leave it blank
             if(rules.defaultValue) {
               var v = rules.defaultValue;
-              idata[field_name] = typeof v === 'function' ? v(req) : v;
+              idata[field_name] = typeof v === 'function' ? v(req, idata) : v;
             }
             else if(rules.required) {
               appendError(field_name + ' is required');
