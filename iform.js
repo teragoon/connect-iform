@@ -91,7 +91,7 @@ function iForm(rules){
 
           if(value === undefined) {
             // form does not contains
-            if(rules.defaultValue) {
+            if(rules.defaultValue !== undefined){
               var v = rules.defaultValue;
               idata[field_name] = typeof v === 'function' ? v(req, idata) : v;
             }
@@ -100,7 +100,7 @@ function iForm(rules){
             }
           } else if(value === null || value === '') {
             // user leave it blank
-            if(rules.defaultValue) {
+            if(rules.defaultValue !== undefined){
               var v = rules.defaultValue;
               idata[field_name] = typeof v === 'function' ? v(req, idata) : v;
             }
