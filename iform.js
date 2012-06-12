@@ -237,12 +237,18 @@ function iValidator (errorHandler) {
         (f = ruleFilter[name]) && f.apply(filter, Array.isArray(v = rules[name]) ? v : [v]);
       }
     }
+
     if(type && (f=typeFilter[type])) f.apply(validator);
     if(type ==='int') {
         return sanitize(filter.value()).toInt();
-    } else if(type ==='float') {
+    }
+    if(type ==='float') {
         return sanitize(filter.value()).toFloat();
-    } else if(type ==='arrayInt') {
+    }
+    if(type ==='date') {
+        return new Date(filter.value());
+    }
+    if(type ==='arrayInt') {
         var oArr = filter.value(),
             nArr = [];
 
@@ -251,7 +257,8 @@ function iValidator (errorHandler) {
         });
 
         return nArr;
-    } else if(type ==='arrayFloat') {
+    }
+    if(type ==='arrayFloat') {
         var oArr = filter.value(),
             nArr = [];
 
@@ -260,9 +267,20 @@ function iValidator (errorHandler) {
         });
 
         return nArr;
-    } else {
-        return filter.value();
     }
+    if(type == 'arrayString') {
+        var oArr = filter.value(),
+            nArr = [];
+//        console.log('type of :', typeof oArr);
+        if (typeof oArr === 'string') {
+            nArr.push(oArr);
+            return nArr;
+        }
+
+        return oArr;
+    }
+
+    return filter.value();
   }
 
 }
