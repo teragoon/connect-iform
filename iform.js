@@ -179,6 +179,12 @@ function empty(type) {
       return 0;
     case 'date':
       return null;
+    case 'arrayString':
+      return [];
+    case 'arrayFloat':
+        return [];
+    case 'arrayInt':
+        return [];
     default:
       return ''
     }
