@@ -179,11 +179,11 @@ function empty(type) {
       return 0;
     case 'date':
       return null;
-    case 'arrayString':
+    case 'arraystring':
       return [];
-    case 'arrayFloat':
+    case 'arrayfloat':
         return [];
-    case 'arrayInt':
+    case 'arrayint':
         return [];
     default:
       return ''
