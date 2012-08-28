@@ -51,6 +51,7 @@
 var Validator = require('validator').Validator
   , sanitize  = require('validator').sanitize
   , Filter    = require('validator').Filter
+  , _ = require('underscore')
   ;
 
 function iForm(rules){
@@ -274,10 +275,10 @@ function iValidator (errorHandler) {
 //        console.log('type of :', typeof oArr);
         if (typeof oArr === 'string') {
             nArr.push(oArr);
-            return nArr;
+            return _.compact(nArr);
         }
 
-        return oArr;
+        return _.compact(oArr);
     }
 
     return filter.value();

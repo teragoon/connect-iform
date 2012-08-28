@@ -2,7 +2,7 @@
   "author": "Gui Lin <guileen@gmail.com>",
   "name": "iform",
   "description": "Form data validation middleware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git://github.com/guileen/connect-iform.git"
@@ -12,7 +12,8 @@
     "node": "*"
   },
   "dependencies": {
-      "validator" : "*"
+      "validator" : "*",
+      "underscore" : "*"
   },
   "devDependencies": {
   }
